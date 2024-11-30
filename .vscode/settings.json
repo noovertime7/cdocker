@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "*.conf": "ini",
+        "*.vue": "vue",
+        "container.h": "c",
+        "sched.h": "c",
+        "unistd.h": "c",
+        "stdio.h": "c",
+        "namespace.h": "c",
+        "fcntl.h": "c",
+        "*.tcc": "c",
+        "exception": "c",
+        "memory_resource": "c",
+        "iosfwd": "c",
+        "new": "c",
+        "ostream": "c",
+        "streambuf": "c",
+        "tools.h": "c",
+        "stdlib.h": "c"
+    }
+}
