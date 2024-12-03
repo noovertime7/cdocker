@@ -67,7 +67,7 @@ int container_run()
       ensure_directory_exists(procdir);
       ensure_directory_exists(merged);
 
-      // setup_overlayfs(lowerdir, upperdir, workdir, merged);
+      setup_overlayfs(lowerdir, upperdir, workdir, merged);
     }
 
     if (-1 == unshare(CLONE_NEWUTS | CLONE_NEWUSER | CLONE_NEWNET | CLONE_NEWPID | CLONE_NEWNS | CLONE_NEWIPC))
