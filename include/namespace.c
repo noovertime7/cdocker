@@ -6,11 +6,12 @@
 #include <unistd.h>
 #include <string.h>
 #include "tools.h"
+#include "common.h"
 
 void setup_user_namespace(pid_t pid) {
     char path[256];
 
-    printf("Setting up user namespace...\n");
+    INFO_PRINT("Setting up user namespace...\n");
 
     sprintf(path, "/proc/%d/setgroups", pid);
     write_file(path, "deny\n");

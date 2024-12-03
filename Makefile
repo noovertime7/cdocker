@@ -1,31 +1,28 @@
 CC = gcc
 CFLAGS = -g -Wall -Wextra -D_GNU_SOURCE
-SRC = main.c include/container.c include/tools.c include/namespace.c
-OBJDIR = build
-OBJS = $(addprefix $(OBJDIR)/,$(notdir $(SRC:.c=.o)))
-EXEC = $(OBJDIR)/cdocker
-
-.PHONY: all clean debug run
+SRC = main.c include/container.c include/tools.c include/namespace.c include/overlayfs.c
+OBJ = $(SRC:.c=.o)
+EXEC = cdocker
 
 all: $(EXEC)
+	chmod u+x $(EXEC)
 
-$(OBJDIR)/%.o: %.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJDIR)/%.o: include/%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(EXEC): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
-
-$(OBJDIR):
-	mkdir -p $@
+$(EXEC): $(SRC)
+	$(CC) $(CFLAGS) -o $@ $^ -lutil
 
 clean:
-	rm -rf $(OBJDIR)
+	rm -f $(OBJ) $(EXEC)
 
 debug:
-	gdbserver :1234 $(EXEC) --debug-mode
+	sudo gdbserver :1234 ./$(EXEC) --debug-mode
 
-run:
-	sudo $(EXEC)
+.PHONY: all clean m1 m2 unmount
+
+m1:
+	sudo mount -t overlay overlay -o lowerdir=rootfs/lowdir,upperdir=rootfs/upperdir,workdir=rootfs/workdir rootfs/merged
+
+m2:
+	sudo mount -t overlay overlay -o lowerdir=rootfs/lowdir:rootfs/lowdir2,upperdir=rootfs/upperdir,workdir=rootfs/workdir rootfs/merged
+
+umount:
+	sudo umount rootfs/merged	

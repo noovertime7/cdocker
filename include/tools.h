@@ -8,11 +8,11 @@
 #include <errno.h>
 
 // 自定义错误处理函数
-void sys_err(const char* msg);
+void sys_err(const char *msg);
 
 // 设置容器主机名的函数
-void set_container_hostname(const char* hostname);
+void set_container_hostname(const char *hostname);
 
 void write_file(const char *filename, const char *content);
-
+void ensure_directory_exists(const char *path);
 #endif // TOOLS_H

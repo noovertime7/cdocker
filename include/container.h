@@ -1,3 +1,8 @@
+#ifndef CONTAINER_H
+#define CONTAINER_H
+
 #include <stdio.h>
 
-void container_run(void);
+int container_run(void);
+
+#endif // CONTAINER_H
